@@ -1,0 +1,7 @@
+---
+- hosts: ldap
+  remote_user: root
+  roles:
+      - ../roles/zimbra-dns
+      - ../roles/base
+      - ../roles/zimbra-ldap

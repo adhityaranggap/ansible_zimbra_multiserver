@@ -1,0 +1,6 @@
+---
+- hosts: mailbox
+  remote_user: root
+  roles:
+     - ../roles/base
+     - ../roles/zimbra-mailbox

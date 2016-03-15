@@ -1,0 +1,57 @@
+#---
+system_packages:
+  - tar
+  - wget
+  - curl
+  - sysstat
+  - wget
+  - links
+  - ntp
+  - ntpdate
+  - strace
+  - telnet
+  - nmap
+  - traceroute
+  - bind-utils
+  - tcpdump
+  - tzdata
+  - vim
+  - dos2unix
+  - libselinux-python
+  - python-pycurl
+  - parted
+  - cronie
+  - lsof
+  - at
+  - irqbalance
+  - rsync
+  - openssh-clients
+  - libaio
+  - net-tools
+
+# groups_packages:
+#   - "@Development tools"
+#   - "@Development libraries"
+
+zimbra_packages:
+  - nc
+  - sudo
+  - libidn
+  - gmp
+  - libaio
+  - libstdc++
+  - unzip
+  - perl-5.10.1
+  - sysstat
+  - sqlite
+  - libreoffice
+  - libreoffice-headless
+
+disabling_service:
+  - portmap
+  - postfix
+  - nfslock
+  - rpcgssd
+  - rpcidmapd
+  - autofs
+  - iptables

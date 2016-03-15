@@ -1,0 +1,44 @@
+---
+
+- name: "Copy SSH Keys"
+  authorized_key: user=root key="{{ lookup('file', '/Users/Miguel/.ssh/id_dsa.pub') }}"
+
+- name: "Copy hosts"
+  template: src=hosts.j2 dest=/etc/hosts
+
+- name: "Install epel"
+  yum: name=epel-release state=present
+
+- name: "Copy resolv file"
+  template: src=resolv.j2 dest=/etc/resolv.conf mode=0644
+
+- name: "Install packages"
+  yum: name={{ item }} state=present
+  with_items:
+      - "{{ system_packages }}"
+      #- "{{ groups_packages }}"
+      - "{{ zimbra_packages }}"
+  tags: packages
+
+- name: "Disabling service"
+  service: name={{ item }} enabled=no
+  with_items:
+       - "{{ disabling_service }}"
+  tags: disabling
+  ignore_errors: yes
+
+- name: "Copy Zimbra TGZ"
+  copy: src={{ zimbra_tgz_name }} dest=/root/
+  tags: zimbra_tgz
+
+- name: "Check Zimbra TGZ file exists"
+  stat: path=/root/{{ zimbra_tgz_name }}
+  register: file_tgz
+
+#da error si el archvo no fue copiado
+- fail: msg="File isn't copy"
+  when: file_tgz.stat.exists == False
+
+- name: "Uncompress Zimbra TGZ"
+  unarchive: src=/root/{{ zimbra_tgz_name }} dest=/root/ copy=no
+  tags: uncompress

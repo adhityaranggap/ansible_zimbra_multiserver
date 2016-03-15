@@ -1,0 +1,6 @@
+
+zimbra_core_rpm: zimbra-core-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_mta_rpm: zimbra-mta-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+
+zmsetup: /opt/zimbra/libexec/zmsetup.pl
+zimbra_mta_config_file: zimbra_mta.conf

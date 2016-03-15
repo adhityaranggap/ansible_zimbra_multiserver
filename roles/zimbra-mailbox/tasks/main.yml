@@ -1,0 +1,36 @@
+---
+- name: "Change DNS resolv"
+  lineinfile: dest=/etc/resolv.conf regexp=^nameserver line=nameserver=10.10.0.71
+
+- name: "Copy Mailbox config file"
+  template: src=mailbox.j2 dest=/root/{{ zimbra_mailbox_config_file }}
+
+- name: "Check Zimbra Path exists"
+  stat: path=/root/{{ zimbra_folder_name }}
+  register: zimbra_folder
+#
+#  - debug: var=zimbra_folder
+#
+#  #da error si el /root/zcs-8.6.0_GA_1153... no existe y se cae
+- name: "Zimbra Path exists result"
+  fail: msg="Zimbra folder not exits"
+  when: zimbra_folder.stat.exists == False
+
+- name: "Install Mailbox RPM"
+  yum: name=/root/{{ zimbra_folder_name }}/packages/{{ item }} state=present
+  with_items:
+    - "{{ zimbra_core_rpm }}"
+    - "{{ zimbra_logger_rpm }}"
+    - "{{ zimbra_snmp_rpm }}"
+    - "{{ zimbra_store_rpm }}"
+    - "{{ zimbra_apache_rpm }}"
+    - "{{ zimbra_spell_rpm }}"
+  tags: mailbox_rpm
+  run_once: true
+
+- name: "Install the Zimbra from 'zimbra_mailbox.conf' file"
+  shell: /opt/zimbra/libexec/zmsetup.pl -c {{ zimbra_mailbox_config_file }} chdir=/root/
+  #shell: /opt/zimbra/libexec/zmsetup.pl -c zimbra_mailbox.conf chdir=/root/
+  args:
+       creates: /opt/zimbra/ssl/zimbra
+  tags: zmsetup

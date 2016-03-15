@@ -1,0 +1,32 @@
+---
+- name: "Change DNS resolv"
+  lineinfile: dest=/etc/resolv.conf regexp=^nameserver line=nameserver=10.10.0.71
+
+- name: "Copy mta config file"
+  template: src=mta.j2 dest=/root/{{ zimbra_mta_config_file }}
+
+- name: "Check Zimbra Path exists"
+  stat: path=/root/{{ zimbra_folder_name }}
+  register: zimbra_folder
+#
+#  - debug: var=zimbra_folder
+#
+#  #da error si el /root/zcs-8.6.0_GA_1153... no existe y se cae
+- name: "Zimbra Path exists result"
+  fail: msg="Zimbra folder not exits"
+  when: zimbra_folder.stat.exists == False
+
+- name: "Install mta RPM"
+  yum: name=/root/{{ zimbra_folder_name }}/packages/{{ item }} state=present
+  with_items:
+    - "{{ zimbra_core_rpm }}"
+    - "{{ zimbra_mta_rpm }}"
+  tags: mta_rpm
+  run_once: true
+
+- name: "Install the Zimbra from 'zimbra_mta.conf' file"
+  shell: /opt/zimbra/libexec/zmsetup.pl -c {{ zimbra_mta_config_file }} chdir=/root/
+  #shell: /opt/zimbra/libexec/zmsetup.pl -c zimbra_mta.conf chdir=/root/
+  args:
+       creates: /opt/zimbra/ssl/zimbra
+  tags: zmsetup

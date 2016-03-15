@@ -1,0 +1,35 @@
+#comentar atom: cmd + alt + /
+
+#Global var
+default_domain: example.com
+zimbra_mailbox_fqdn: mailbox.example.com
+zimbra_ldap_fqdn: ldap.example.com
+zimbra_mta_fqdn: mta.example.com
+zimbra_password: zimbra.lab
+zimbra_tgz_name: zcs-8.6.0_GA_1153.RHEL6_64.20141215151155.tgz
+zimbra_folder_name: zcs-8.6.0_GA_1153.RHEL6_64.20141215151155
+zimbra_path: /opt/zimbra
+zmprov: /opt/zimbra/bin/zmprov
+
+#Zimbra server
+zimbra_ldap_ip: 10.10.0.71
+zimbra_mailbox_ip: 10.10.0.73
+zimbra_mta_ip: 10.10.0.72
+
+#Zimbra kickstart
+zimbra_ldap_config_file: zimbra_ldap.conf
+zimbra_mailbox_config_file: zimbra_mailbox.conf
+zimbra_mta_config_file: zimbra_mta.conf
+
+#Zimbra command
+zmsetup: /opt/zimbra/libexec/zmsetup.pl
+
+#Zimbra RPM
+zimbra_core_rpm: zimbra-core-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_ldap_rpm: zimbra-ldap-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_logger_rpm: zimbra-logger-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_snmp_rpm: zimbra-snmp-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_store_rpm: zimbra-store-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_apache_rpm: zimbra-apache-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_spell_rpm: zimbra-spell-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm
+zimbra_mta_rpm: zimbra-mta-8.6.0_GA_1153.RHEL6_64-20141215151155.x86_64.rpm

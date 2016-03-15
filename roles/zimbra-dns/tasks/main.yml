@@ -1,0 +1,22 @@
+---
+
+- name: "Install named"
+  yum: name={{ item }} state=present
+  with_items:
+       - bind
+       - bind-utils
+       - bind-libs
+
+- name: "Copy DNS config file"
+  template: src=named.conf.j2 dest=/etc/named.conf mode=0644
+  tags: named
+
+- name: "Copy DNS zone file"
+  template: src=example.zone.j2 dest=/var/named/example.com.zone owner=named group=named mode=0644
+  tags: zone
+
+- name: "Start DNS service"
+  service: name=named state=started enabled=yes
+
+- name: "Change resolver"
+  lineinfile: dest=/etc/resolv.conf regexp=^nameserver line="nameserver 127.0.0.1"

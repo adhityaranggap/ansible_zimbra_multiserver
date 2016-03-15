@@ -1,0 +1,33 @@
+---
+
+- name: "Copy Ldap config file"
+  template: src=ldap.j2 dest=/root/{{ zimbra_ldap_config_file }}
+
+- name: "Start DNS service"
+  service: name=named state=started enabled=yes
+
+- name: "Check Zimbra Path exists"
+  stat: path=/root/{{ zimbra_folder_name }}
+  register: zimbra_folder
+#
+#  - debug: var=zimbra_folder
+#
+#  #da error si el /root/zcs-8.6.0_GA_1153... no existe y se cae
+- name: "Zimbra Path exists result"
+  fail: msg="Zimbra folder not exits"
+  when: zimbra_folder.stat.exists == False
+
+- name: "Install Ldap RPM"
+  yum: name=/root/{{ zimbra_folder_name }}/packages/{{ item }} state=present
+  with_items:
+    - "{{ zimbra_core_rpm }}"
+    - "{{ zimbra_ldap_rpm }}"
+  tags: ldap_rpm
+  run_once: true
+
+- name: "Install the Zimbra from 'zimbra_ldap.conf' file"
+  shell: /opt/zimbra/libexec/zmsetup.pl -c {{ zimbra_ldap_config_file }} chdir=/root/
+  #shell: /opt/zimbra/libexec/zmsetup.pl -c zimbra_ldap.conf chdir=/root/
+  args:
+       creates: /opt/zimbra/ssl/zimbra
+  tags: zmsetup

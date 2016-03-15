@@ -1,0 +1,6 @@
+---
+- hosts: mta
+  remote_user: root
+  roles:
+     - ../roles/base
+     - ../roles/zimbra-mta

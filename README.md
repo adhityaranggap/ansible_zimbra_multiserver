@@ -40,8 +40,9 @@ The private variables into:
 
 Instalation
 -----------
-The order is:
+Role instalation  is:
 
+1. Zimbra DNS
 1. Zimbra Ldap
 2. Zimbra Mailbox
 3. Zimbra MTA

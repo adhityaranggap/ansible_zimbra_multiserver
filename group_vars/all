@@ -1,20 +1,20 @@
 #comentar atom: cmd + alt + /
 
 #Global var
-default_domain: example.com
-zimbra_mailbox_fqdn: mailbox.example.com
-zimbra_ldap_fqdn: ldap.example.com
-zimbra_mta_fqdn: mta.example.com
-zimbra_password: zimbra.lab
+default_domain: rumahinternet.id
+zimbra_mailbox_fqdn: mbox.rumahinternet.id
+zimbra_ldap_fqdn: ldap.rumahinternet.id
+zimbra_mta_fqdn: mta.rumahinternet.id
+zimbra_password: Kamvret123!
 zimbra_tgz_name: zcs-8.6.0_GA_1153.RHEL6_64.20141215151155.tgz
 zimbra_folder_name: zcs-8.6.0_GA_1153.RHEL6_64.20141215151155
 zimbra_path: /opt/zimbra
 zmprov: /opt/zimbra/bin/zmprov
 
 #Zimbra server
-zimbra_ldap_ip: 10.10.0.71
-zimbra_mailbox_ip: 10.10.0.73
-zimbra_mta_ip: 10.10.0.72
+zimbra_ldap_ip: 10.76.129.118
+zimbra_mailbox_ip: 10.76.131.195
+zimbra_mta_ip: 10.76.129.119
 
 #Zimbra kickstart
 zimbra_ldap_config_file: zimbra_ldap.conf
